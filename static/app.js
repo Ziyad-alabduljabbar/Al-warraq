@@ -162,6 +162,7 @@ function appendMessage(sender, text, id = '') {
     
     const bubble = document.createElement('div');
     bubble.className = `msg-bubble ${sender}`;
+    bubble.setAttribute('dir', 'auto');
     bubble.innerHTML = formatMessage(text); 
     
     wrapper.appendChild(bubble);

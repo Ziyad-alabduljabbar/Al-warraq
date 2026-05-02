@@ -1,3 +1,4 @@
+from datetime import datetime
 from flask import Flask, render_template, request, jsonify, redirect, url_for, flash, session
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
@@ -321,8 +322,15 @@ class ChatBot:
     def __init__(self):
         self.groq_client = None
         self.sambanova_client = None
+        self.last_request_time = None
         self.setup_clients()
-
+    def _wait_if_needed(self):
+        
+        if self.last_request_time:
+            elapsed = (datetime.now() - self.last_request_time).total_seconds()
+            if elapsed < 2: 
+                time.sleep(2 - elapsed)
+        self.last_request_time = datetime.now()
     def setup_clients(self):
         print("⏳ ChatBot: Initializing Multi-Cloud System (Groq + SambaNova)...")
         groq_key = os.environ.get("GROQ_API_KEY")
@@ -392,35 +400,50 @@ class ChatBot:
             
         messages_format.append({"role": "user", "content": user_msg})
 
-        #  Groq 
+        # Groq
         if self.groq_client:
             try:
+                self._wait_if_needed()
                 chat_completion = self.groq_client.chat.completions.create(
-                    messages=messages_format, 
+                    messages=messages_format,
                     model="llama-3.3-70b-versatile",
                     temperature=0.2,
                     max_tokens=300,
-                    timeout=5  
+                    timeout=10
                 )
                 return chat_completion.choices[0].message.content
-            except Exception as e:
-                print(f"☁️ Groq API Timeout/Error. Switching to SambaNova Fallback... ({e})")
 
-        #   SambaNova 
+            except Exception as e:
+                error_msg = str(e).lower()
+
+                # ✅ التعرف على Rate Limit Error
+                if "rate" in error_msg or "429" in error_msg or "quota" in error_msg:
+                    print("⏳ Groq Rate Limit reached. Waiting 3s then trying SambaNova...")
+                    time.sleep(3)
+                else:
+                    print(f"☁️ Groq Error: {e}. Switching to SambaNova...")
+
+        # SambaNova Fallback
         if self.sambanova_client:
             try:
+                self._wait_if_needed()
                 print("🔄 Using SambaNova API as Fallback...")
                 chat_completion = self.sambanova_client.chat.completions.create(
-                    messages=messages_format, 
+                    messages=messages_format,
                     model="llama-3.3-70b-versatile",
                     temperature=0.2,
                     max_tokens=300,
-                    timeout=5
+                    timeout=10
                 )
                 return chat_completion.choices[0].message.content
+
             except Exception as e:
-                print(f"❌ SambaNova Fallback Failed: {e}")
-                return "Sorry, both AI cloud services are offline right now."
+                error_msg = str(e).lower()
+                if "rate" in error_msg or "429" in error_msg:
+                    return "⏸️ Both AI services are busy right now. Please try again in 1 minute."
+                else:
+                    print(f"❌ SambaNova Error: {e}")
+                    return "Sorry, both AI services are temporarily unavailable."
 
         return "Sorry, the AI librarian is currently unavailable. Please check API keys."
     
@@ -754,9 +777,8 @@ def ratelimit_handler(e):
             "error": "Too many attempts! Please wait a minute before trying again."
         }), 429
     else:
-       
         flash('Too many attempts! For security reasons, please wait a minute.', 'error')
-        return redirect(url_for('home'))
+        return redirect(request.url)
 
 if __name__ == '__main__':
     with app.app_context():
