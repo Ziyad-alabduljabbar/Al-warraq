@@ -1,8 +1,8 @@
 ﻿Test_ID,Type,Message,Latency_ms,Passed,Notes,Response_Preview
-CB_01,Language_Arabic,ما هي المواضيع الرئيسية في هذا الكتاب؟,1091.8,True,Lang=OK | KW=2/2 (100%),"**موجز المحتوى**
-يغطي الكتاب **نظم الخبراء** و **الشبكات العصبية** بشكل شامل. المواضيع الرئيسية تتضمن:
-* **نظم الخبراء**"
-CB_02,Language_English,What are the main topics covered in this book?,566.0,True,Lang=OK | KW=2/2 (100%),**Python Machine Learning** by Sebastian Raschka is a comprehensive guide to machine learning using Python. The main top
-CB_03,Recommendations,Can you recommend similar books?,534.2,True,Lang=OK | KW=3/3 (100%),"**Software Engineering** enthusiasts will love these recommendations. Based on **""Clean Code""** by Robert C. Martin, her"
-CB_04,Specific_Question,What chapters does this book have?,900.2,True,Lang=OK | KW=2/2 (100%),The **Introduction to Algorithms** book by Thomas H. Cormen is a comprehensive textbook that covers a wide range of topi
+CB_01,Language_Arabic,ما هي المواضيع الرئيسية في هذا الكتاب؟,1294.5,True,Lang=OK | KW=2/2 (100%),"**موجز الكتاب**
+يغطي الكتاب **Artificial Intelligence** مواضيع رئيسية في مجال **الذكاء الاصطناعي**. وتشمل هذه المواضيع:
+"
+CB_02,Language_English,What are the main topics covered in this book?,1619.5,True,Lang=OK | KW=2/2 (100%),The **Python Machine Learning** book by Sebastian Raschka is a comprehensive guide to machine learning using Python. The
+CB_03,Recommendations,Can you recommend similar books?,1706.5,True,Lang=OK | KW=3/3 (100%),"**Software Engineering** enthusiasts will love these recommendations. Based on **""Clean Code""** by Robert C. Martin, her"
+CB_04,Specific_Question,What chapters does this book have?,2444.3,True,Lang=OK | KW=2/2 (100%),**Introduction to Algorithms** by Thomas H. Cormen is a comprehensive textbook that covers a wide range of topics in alg
 CB_05,Empty_Message,,0.0,True,Empty message protection OK,Protected — empty message blocked

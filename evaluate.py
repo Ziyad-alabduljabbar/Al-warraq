@@ -353,6 +353,86 @@ def print_speed_report(df):
     print(f"  Slowest mode  : Favorites ({slowest:.1f} ms avg)")
     print(f"  Spell overhead: {df['SpellCorrect_ms'].mean():.2f} ms avg per query")
 
+# ==============================================================
+# SECTION 2B: CONCURRENT USERS TEST
+# ==============================================================
+def evaluate_concurrent(recommender, test_data, user_levels=None):
+    import concurrent.futures
+
+    if user_levels is None:
+        user_levels = [1, 5, 10, 15]
+
+    samples = random.sample(test_data, min(20, len(test_data)))
+    queries = [d["Query"] for d in samples]
+
+    def single_request(query):
+        t = time.perf_counter()
+        recommender.get_recommendations(query, top_k=TOP_K)
+        return (time.perf_counter() - t) * 1000
+
+    print(f"\n[Concurrent] Testing with user levels: {user_levels}...")
+    concurrent_rows = []
+    baseline_avg = None
+
+    for n_users in user_levels:
+        user_queries = (queries * ((n_users // len(queries)) + 1))[:n_users]
+
+        t_total_start = time.perf_counter()
+        with concurrent.futures.ThreadPoolExecutor(max_workers=n_users) as executor:
+            latencies = list(executor.map(single_request, user_queries))
+        total_wall = (time.perf_counter() - t_total_start) * 1000
+
+        avg_lat = sum(latencies) / len(latencies)
+        max_lat = max(latencies)
+        min_lat = min(latencies)
+        p95_lat = sorted(latencies)[int(len(latencies) * 0.95)]
+
+        if n_users == 1:
+            baseline_avg = avg_lat
+
+        degradation = (avg_lat / baseline_avg) if baseline_avg else 1.0
+        acceptable  = degradation <= 3.0
+        status = "OK" if acceptable else "SLOW"
+
+        print(f"   [{status}] {n_users:>2} users | Avg={avg_lat:>7.1f}ms | Max={max_lat:>7.1f}ms | P95={p95_lat:>7.1f}ms | Degradation={degradation:.1f}x")
+
+        concurrent_rows.append({
+            "Num_Users"    : n_users,
+            "Avg_ms"       : round(avg_lat, 1),
+            "Min_ms"       : round(min_lat, 1),
+            "Max_ms"       : round(max_lat, 1),
+            "P95_ms"       : round(p95_lat, 1),
+            "Wall_Time_ms" : round(total_wall, 1),
+            "Degradation_x": round(degradation, 2),
+            "Acceptable"   : acceptable,
+        })
+
+    df = pd.DataFrame(concurrent_rows)
+    df.to_csv("concurrent_results.csv", index=False, encoding="utf-8-sig")
+    return df
+
+def print_concurrent_report(df):
+    print("\n" + "=" * 65)
+    print("SECTION 2B — CONCURRENT USERS REPORT")
+    print("=" * 65)
+    print(f"\n{'Users':<8} {'Avg (ms)':>10} {'Max (ms)':>10} {'P95 (ms)':>10} {'Degradation':>13} {'Status':>8}")
+    print("-" * 65)
+    for _, row in df.iterrows():
+        status = "OK" if row["Acceptable"] else "SLOW"
+        print(f"{int(row['Num_Users']):<8} {row['Avg_ms']:>10.1f} {row['Max_ms']:>10.1f} {row['P95_ms']:>10.1f} {row['Degradation_x']:>12.1f}x {status:>8}")
+
+    passed = df["Acceptable"].sum()
+    total  = len(df)
+    print(f"\n  Pass Rate : {passed}/{total} levels acceptable (degradation <= 3x baseline)")
+
+    max_ok = df[df["Acceptable"]]["Num_Users"].max() if df["Acceptable"].any() else 0
+    print(f"  Max users handled without noticeable slowdown: {max_ok}")
+
+    if not df[df["Num_Users"] == 15].empty:
+        row_15 = df[df["Num_Users"] == 15].iloc[0]
+        verdict = "PASS" if row_15["Acceptable"] else "FAIL"
+        print(f"  15-user target: [{verdict}] — degradation={row_15['Degradation_x']:.1f}x vs baseline")
+
 # ══════════════════════════════════════════════════════════════
 # SECTION 3: CHATBOT
 # ══════════════════════════════════════════════════════════════
@@ -516,6 +596,10 @@ def run_evaluation():
     print(f"\n[4/4] Section 2 — Speed...")
     speed_df = evaluate_speed(recommender, test_data)
 
+    # -- SECTION 2B: CONCURRENT USERS --------------------------------
+    print('\n[Concurrent] Section 2B -- Concurrent users test...')
+    concurrent_df = evaluate_concurrent(recommender, test_data, user_levels=[1, 5, 10, 15])
+
     # ── SECTION 3: CHATBOT ─────────────────────────────────────
     chatbot_df = evaluate_chatbot(bot)
 
@@ -568,6 +652,7 @@ def run_evaluation():
         print(f"  Warning: {len(regressions)} regressions -> regressions.csv")
 
     print_speed_report(speed_df)
+    print_concurrent_report(concurrent_df)
     print_chatbot_report(chatbot_df)
 
     print("\n" + "=" * 65)
@@ -575,7 +660,8 @@ def run_evaluation():
     print("    evaluation_results.csv  — Accuracy per query")
     print("    spell_evaluation.csv    — Spell correction detail")
     print("    speed_results.csv       — Latency per query")
-    print("    chatbot_results.csv     — ChatBot test results")
+    print("    concurrent_results.csv  -- Concurrent users test")
+    print("    chatbot_results.csv     -- ChatBot test results")
     if zero_standard: print("    zero_results.csv        — Queries with 0 results")
     if regressions:   print("    regressions.csv         — Favorites regressions")
     print("=" * 65)
