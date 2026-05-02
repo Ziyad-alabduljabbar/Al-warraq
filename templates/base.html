@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}الوراق | Al warraq{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body data-current-user="{{ 'true' if current_user.is_authenticated else 'false' }}">
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <a href="{{ url_for('home') }}" class="brand-link">
+          <img src="{{ url_for('static', filename='logo.png') }}" alt="Brand logo" />
+          <span>الوراق | Al warraq</span>
+        </a>
+      </div>
+      <nav class="sidebar-links">
+        <a href="{{ url_for('home') }}">Home</a>
+        {% if current_user.is_authenticated %}
+          <a href="{{ url_for('favorites') }}">Favorites</a>
+          <a href="{{ url_for('interests') }}">Interests</a>
+          <a href="{{ url_for('profile') }}">Profile</a>
+          <a href="{{ url_for('logout') }}">Logout</a>
+        {% else %}
+          <a href="{{ url_for('login') }}">Login</a>
+         <a href="{{ url_for('register') }}">Register</a>
+        {% endif %}
+      </nav>
+    </aside>
+
+    <div class="content">
+      <main>
+        <div class="flash-messages">
+          {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+              {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">{{ message }}</div>
+              {% endfor %}
+            {% endif %}
+          {% endwith %}
+        </div>
+        {% block content %}{% endblock %}
+      </main>
+
+      
+    </div>
+  </div>
+
+  {% block scripts %}{% endblock %}
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

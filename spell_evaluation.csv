@@ -1,0 +1,14 @@
+﻿Query_Type,Raw_Query,Spell_Output,Target_Category,HR_Raw,HR_Spell_Fixed,HR_Ideal,Improvement,Gap_to_Ideal
+Spell_MultiError,discrt mathmatics and logic,discrete mathematics and logic,discrete mathematics,100.0,100.0,100.0,0.0,0.0
+Spell_MultiError,linar algbra matrics,linear algebra matrices,linear algebra,100.0,100.0,100.0,0.0,0.0
+Spell_MultiError,probabilty and statstics,probability and statistics,probability,90.0,90.0,90.0,0.0,0.0
+Spell_Typo,numercal anlysis,numerical analysis,numerical analysis,100.0,100.0,100.0,0.0,0.0
+Spell_Typo,advnced calculs,advanced calculus,calculus,100.0,100.0,100.0,0.0,0.0
+Spell_MultiError,quantm mechanis theary,quantum mechanics theory,quantum mechanics,100.0,100.0,100.0,0.0,0.0
+Spell_MultiError,eletrical enginering circuts,electrical engineering circuits,electrical engineering,100.0,100.0,100.0,0.0,0.0
+Spell_MultiError,mechnical enginering,mechanical engineering,mechanical engineering,100.0,100.0,100.0,0.0,0.0
+Spell_MultiError,neuroscince and brain,neuroscience and brain,neuroscience,100.0,100.0,100.0,0.0,0.0
+Spell_MultiError,artficial intelgence etics,artificial intelligence ethics,artificial intelligence,70.0,70.0,70.0,0.0,0.0
+Spell_Abbrev,nlp algorthms and txt mining,nlp natural language processing algorithms and text mining,natural language processing,100.0,100.0,100.0,0.0,0.0
+Spell_Abbrev,sql databse quris,sql structured query language database uris,sql,90.0,60.0,90.0,-30.0,30.0
+Spell_Abbrev,iot netwrks secuity,iot internet of things networks security,internet of things,90.0,100.0,90.0,10.0,-10.0

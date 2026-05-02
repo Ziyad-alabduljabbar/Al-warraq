@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% block title %}Profile | الوراق | Al warraq{% endblock %}
+
+{% block content %}
+<section class="profile-section">
+  <div class="profile-header">
+    <h1>Your Profile</h1>
+    <p>Manage your account details and reading preferences.</p>
+  </div>
+
+  <div class="profile-card">
+    
+
+    <div class="profile-avatar-container">
+      <div class="profile-avatar">
+        {{ user.email[0] }}
+      </div>
+      <h2 class="profile-email-title">{{ user.email.split('@')[0] }}</h2>
+    </div>
+
+    <div class="profile-details">
+      <h3 class="profile-section-title">Account Information</h3>
+      <p class="profile-detail-text">
+        <strong>Email:</strong> {{ user.email }}
+      </p>
+      <p class="profile-detail-text">
+        <strong>Account ID:</strong> #{{ user.id }}
+      </p>
+    </div>
+
+    <div style="margin-bottom: 1.5rem;">
+      <button type="button" id="togglePasswordBtn" class="button-primary profile-action-btn-outline" style="padding: 0.6rem 1.2rem; font-size: 0.95rem; cursor: pointer;">
+        🔒 Change Password
+      </button>
+    </div>
+
+    <div class="profile-password-box" id="passwordFormContainer" style="display: none;">
+      <h3 class="profile-password-title">Change Password</h3>
+      <form action="{{ url_for('change_password') }}" method="POST" id="changePasswordForm" class="profile-password-form">
+        
+        <div class="password-input-group">
+          <label class="password-label">Current Password</label>
+          <input type="password" name="current_password" required class="password-input" placeholder="Enter current password">
+        </div>
+        
+        <div class="password-input-group">
+          <label class="password-label">New Password</label>
+          <input type="password" name="new_password" id="new_password" required class="password-input" placeholder="Enter new password">
+        </div>
+        
+        <div class="password-input-group">
+          <label class="password-label">Confirm New Password</label>
+          <input type="password" name="confirm_password" id="confirm_password" required class="password-input" placeholder="Confirm new password">
+        </div>
+        
+        <p id="password-error" class="profile-error-text" style="display: none;">⚠️ New passwords do not match!</p>
+        
+        <button type="submit" class="password-submit-btn">
+          Update Password
+        </button>
+      </form>
+    </div>
+
+    <div class="profile-interests">
+      <h3 class="profile-section-title">Your Reading Interests</h3>
+      <div class="profile-interests-container">
+        
+        {% if user.interests %}
+          {% for interest_obj in user.interests %}
+            <span class="subject-tag profile-subject-tag">
+              {{ interest_obj.interest_name.replace('_', ' ').strip().title() }}
+            </span>
+          {% endfor %}
+        {% else %}
+          <p class="profile-no-interests">No interests selected yet.</p>
+        {% endif %}
+
+      </div>
+    </div>
+
+    <div class="profile-actions-container">
+      <a href="{{ url_for('interests') }}" class="button-primary profile-action-btn">
+        Edit Interests
+      </a>
+      <a href="{{ url_for('favorites') }}" class="button-primary profile-action-btn profile-action-btn-outline">
+        View Favorites
+      </a>
+    </div>
+
+    <div class="profile-logout-container">
+      <a href="{{ url_for('logout') }}" class="profile-logout-link">
+        Log Out
+      </a>
+    </div>
+
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block title %}Home | Al-Warraq{% endblock %}
+{% block content %}
+  <section class="hero">
+    <h1>Discover your next unforgettable book</h1>
+    <p class="muted">Search your local digital library with AI-powered retrieval.</p>
+
+    <form class="search" method="get" action="{{ url_for('search') }}">
+      <input class="search-input" type="text" name="q" value="{{ query|default('') }}" placeholder="Search by topic, author, or concept..." />
+
+      <div class="toggle">
+        <span class="toggle-label" id="toggleLeft">General</span>
+        <label class="switch">
+          <input id="modeToggle" type="checkbox" {% if mode|default('general') == 'personalized' %}checked{% endif %} />
+          <span class="slider"></span>
+        </label>
+        <span class="toggle-label" id="toggleRight">Personalized</span>
+      </div>
+
+      <input type="hidden" name="mode" id="modeInput" value="{{ mode|default('general') }}" />
+
+      <button class="btn" type="submit">Search</button>
+    </form>
+  </section>
+
+  {% if current_user.is_authenticated and recommended and (mode is not defined) and (results is not defined) %}
+    <section class="section">
+      <h2>Recommended for You</h2>
+      <div class="grid">
+        {% for b in recommended %}
+          <a class="card" href="{{ url_for('details', book_id=b.id) }}">
+            <div class="card-title">{{ b.title }}</div>
+            <div class="card-sub">{{ b.author }}</div>
+            <div class="tag">{{ b.category }}</div>
+            <div class="card-body">{{ b.description|truncate(100) }}</div>
+          </a>
+        {% endfor %}
+      </div>
+    </section>
+  {% endif %}
+
+  {% if results is defined %}
+    <section class="section">
+      <h2>Results</h2>
+      {% if results %}
+        <div class="grid">
+          {% for b in results %}
+            <a class="card" href="{{ url_for('details', book_id=b.id) }}">
+              <div class="card-title">{{ b.title }}</div>
+              <div class="card-sub">{{ b.author }}</div>
+              <div class="tag">{{ b.category }}</div>
+              <div class="card-body">{{ b.description|truncate(100) }}</div>
+            </a>
+          {% endfor %}
+        </div>
+      {% else %}
+        <div class="empty">No results found.</div>
+      {% endif %}
+    </section>
+  {% endif %}
+{% endblock %}

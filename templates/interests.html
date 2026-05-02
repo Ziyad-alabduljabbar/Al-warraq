@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Interests | الوراق | Al warraq{% endblock %}
+
+{% block content %}
+<section class="interest-form">
+  <div class="interest-heading">
+    <h1>Tune your interests</h1>
+    <p>
+      Pick subjects you love. We will boost recommendations for books that align with your selections when
+      you browse in <strong>TF-IDF + Interests</strong> mode.
+    </p>
+  </div>
+
+  <form method="post" class="interest-form__layout" id="interestForm" data-interest-form>
+    <fieldset class="interest-list-container">
+      <legend class="sr-only">Select your preferred book subjects</legend>
+      <div class="interest-toolbar">
+        <label for="interestOptions" class="interest-label">Select subjects</label>
+        <span class="interest-helper">Choose as many themes as you like.</span>
+      </div>
+      <div class="interest-list" id="interestOptions" data-interest-list>
+        {% for interest in available_interests %}
+          <label class="interest-chip">
+            <input type="checkbox" name="interests" value="{{ interest }}" {% if interest in saved_interests %}checked{% endif %}>
+            <span>{{ interest }}</span>
+          </label>
+        {% endfor %}
+      </div>
+    </fieldset>
+
+    <aside class="interest-sidebar">
+      <div class="interest-sidebar__content">
+        <h3>Your saved interests</h3>
+        <p class="interest-sidebar__copy">We'll prioritise books that match these themes.</p>
+        <div class="interest-summary {% if not saved_interests %}is-hidden{% endif %}" data-interest-summary>
+          {% for interest in saved_interests %}
+            <span class="badge badge--compact">{{ interest }}</span>
+          {% endfor %}
+        </div>
+        <p class="interest-empty {% if saved_interests %}is-hidden{% endif %}" data-interest-empty>No interests saved yet. Select some on the left!</p>
+      </div>
+      <button type="submit" class="button-primary interest-submit">Save Preferences</button>
+    </aside>
+  </form>
+</section>
+{% endblock %}

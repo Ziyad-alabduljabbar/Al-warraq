@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Discover Books | الوراق | Al warraq{% endblock %}
+
+{% block content %}
+<section class="hero">
+  <h1>Discover your next unforgettable read</h1>
+  <p>Explore the curated shelves of <strong>الوراق | Al warraq</strong> and tailor suggestions with personalized modes.</p>
+</section>
+
+<section class="search-panel">
+  <form method="post" action="{{ url_for('home') }}">
+    <div class="form-row">
+      <input type="text" name="query" placeholder="Search by title, author, or keywords" value="{{ search_query }}" required />
+      
+      <select name="mode" data-recommendation-select>
+        <option value="tfidf" {% if selected_mode == 'tfidf' %}selected{% endif %}>Base Query</option>
+        <option value="tfidf_favorites" {% if selected_mode == 'tfidf_favorites' %}selected{% endif %}>Query with Favorites</option>
+        <option value="tfidf_interests" {% if selected_mode == 'tfidf_interests' %}selected{% endif %}>Query with Interests</option>
+      </select>
+      
+      <button type="submit" class="button-primary">Recommend Books</button>
+    </div>
+  </form>
+  {% if message %}
+    <div class="alert" style="margin-top:1rem;">{{ message }}</div>
+  {% endif %}
+</section>
+
+<section>
+  <div class="grid">
+    {% for book in recommendations %}
+      <a class="book-card" href="{{ url_for('book_details', title=book.title) }}">
+        <h3>{{ book.title }}</h3>
+        <p><strong>Author:</strong> {{ book.author }}</p>
+        <p>{{ book.description }}</p>
+        
+        {% if book.category and book.category != 'nan' and book.category != 'None' %}
+          <div style="margin-top: 10px;">
+            <span class="subject-tag">
+              {{ book.category | replace("['", "") | replace("']", "") | replace("'", "") | replace("_", " ") | title }}
+            </span>
+          </div>
+        {% endif %}
+        </a>
+    {% else %}
+      {% if search_query %}
+        <p>No books found matching your criteria. Try another search!</p>
+      {% endif %}
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

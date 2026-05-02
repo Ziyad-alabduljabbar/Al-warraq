@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Login | الوراق | Al warraq{% endblock %}
+
+{% block content %}
+<form method="post" class="auth-form">
+  <h2>Welcome back to الوراق | Al warraq</h2>
+  
+  <label for="email">Email Address</label>
+  <input id="email" type="email" name="email" placeholder="you@example.com" required />
+
+  <label for="password">Password</label>
+  <input id="password" type="password" name="password" placeholder="Enter your password" required />
+
+  <button type="submit" class="button-primary" style="width:100%;">Log In</button>
+  <p style="margin-top:1rem;text-align:center;">
+    Need an account?
+    <a href="{{ url_for('register') }}" style="color: var(--primary-brown); font-weight:600;">Register here</a>
+  </p>
+</form>
+{% endblock %}

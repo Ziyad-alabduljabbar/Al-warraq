@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+{% block title %}{{ book.title }} | الوراق | Al warraq{% endblock %}
+
+{% block content %}
+
+<section class="book-details">
+  {% if current_user.is_authenticated %}
+    <a href="{{ url_for('add_favorite', title=book.title) }}" 
+       class="favorite-toggle {% if book_is_favorite %}active{% endif %}">
+       ★
+    </a>
+  {% endif %}
+
+  <h1>{{ book.title }}</h1>
+  
+  <div style="margin-bottom: 1.5rem;">
+    <p style="font-size: 1.1rem;"><strong>Author:</strong> {{ book.author }}</p>
+    
+    {% if book.category and book.category != 'nan' %}
+      <p style="font-size: 1.1rem; margin-top: 0.5rem;">
+        <strong>Category:</strong> 
+        <span class="subject-tag" style="background-color: #6B3121; color: white; border-radius: 4px; padding: 2px 8px;">
+          {{ book.category }}
+        </span>
+      </p>
+    {% endif %}
+    </div>
+
+  <div style="margin-bottom:1.5rem;">
+    <h3>Description</h3>
+    <p style="line-height:1.6;">{{ book.full_desc }}</p>
+  </div>
+
+  {% if book.tags and book.tags != 'nan' %}
+    <div style="margin-bottom: 1.5rem;">
+      <h3>Tags</h3>
+      {% for tag in book.tags.replace('|', ',').split(',') %}
+        <span class="subject-tag">{{ tag.strip() }}</span>
+      {% endfor %}
+    </div>
+  {% endif %}
+</section>
+
+<div id="aiChatSection" class="chat-box-container">
+  <h3>🤖 Al-Warraq AI Librarian</h3>
+  <div id="chatHistory" class="chat-history">
+    <div class="msg-wrapper bot">
+      <div class="msg-bubble bot">Hello! I've read <strong>"{{ book.title }}"</strong>. How can I help?</div>
+    </div>
+  </div>
+  <div class="chat-input-group">
+    <input type="text" id="chatInput" placeholder="Ask me anything...">
+    <button onclick="handleSendClick()" class="button-primary">Send</button>
+  </div>
+</div>
+
+<div class="ai-trigger-container">
+  <button id="toggleChatBtn" class="ai-trigger-btn">
+    <img src="{{ url_for('static', filename='ai-icon.png') }}" alt="AI Chat">
+    <span class="ai-trigger-text">Ask Al-Warraq AI about this book</span>
+  </button>
+</div>
+
+{% if similar_books %}
+<section style="margin-top: 3rem; border-top: 1px solid #ccc; padding-top: 2rem;">
+  <h2>Similar Books You Might Like</h2>
+  <div class="grid">
+    {% for sim in similar_books %}
+      <a class="book-card" href="{{ url_for('book_details', title=sim.title) }}">
+        <h3>{{ sim.title }}</h3>
+        <p><strong>Author:</strong> {{ sim.author }}</p>
+      </a>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+{% endblock %}
+
+{% block scripts %}
+<script>
+  // Toggle Chat Box visibility
+  const toggleChatBtn = document.getElementById('toggleChatBtn');
+  const chatSection = document.getElementById('aiChatSection');
+
+  if (toggleChatBtn && chatSection) {
+    toggleChatBtn.addEventListener('click', () => {
+      chatSection.style.display = (chatSection.style.display === 'none' || chatSection.style.display === '') ? 'block' : 'none';
+      if(chatSection.style.display === 'block') chatSection.scrollIntoView({ behavior: 'smooth' });
+    });
+  }
+
+  // Handle Send Button Logic
+  function handleSendClick() {
+    const bookData = {
+        title: "{{ book.title }}",
+        author: "{{ book.author }}",
+        category: "{{ book.category }}",
+        tags: "{{ book.tags }}",
+        full_desc: {{ book.full_desc | tojson | safe }}
+    };
+    const similarBooksList = [{% for sim in similar_books %}"{{ sim.title }}",{% endfor %}];
+    
+    // Calls the function defined in your app.js
+    sendChatMessage(bookData, similarBooksList);
+  }
+</script>
+{% endblock %}

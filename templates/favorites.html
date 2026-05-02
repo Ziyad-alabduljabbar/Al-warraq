@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Favorites | الوراق{% endblock %}
+
+{% block content %}
+<section class="favorites-section">
+  <h1>Your favorite picks</h1>
+  
+  {% if favorite_books %}
+    <div class="grid">
+      {% for book in favorite_books %}
+        <div class="book-card-container">
+          <a class="book-card" href="{{ url_for('book_details', title=book.title) }}">
+            <h3>{{ book.title }}</h3>
+            <p><strong>Author:</strong> {{ book.author }}</p>
+            <p>{{ book.description[:110] }}...</p>
+            
+            {% if book.category %}
+              <span class="subject-tag">
+                {{ book.category.split(';')[0] if ';' in book.category else book.category }}
+              </span>
+            {% endif %}
+          </a>
+
+          <a href="{{ url_for('remove_favorite', title=book.title) }}" 
+             class="remove-favorite-btn"
+             onclick="return confirm('Remove this book from favorites?')">
+             Remove
+          </a>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="favorite-empty">
+      <h2>No favorites yet</h2>
+      <a href="{{ url_for('home') }}" class="button-primary">Explore books</a>
+    </div>
+  {% endif %}
+</section>
+{% endblock %}
