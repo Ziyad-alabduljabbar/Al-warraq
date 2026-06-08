@@ -49,6 +49,39 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    
+    const chatInput = document.getElementById('chatInput');
+if (chatInput) {
+    chatInput.addEventListener('input', function() {
+        
+        this.style.height = 'auto'; 
+        
+        
+        let scrollH = this.scrollHeight;
+        this.style.height = (scrollH > 40 ? scrollH : 40) + 'px';
+
+        
+        if (scrollH >= 95) {
+            this.style.overflowY = 'auto';
+        } else {
+            this.style.overflowY = 'hidden';
+        }
+    });
+
+    chatInput.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter' && !event.shiftKey) {
+            event.preventDefault();
+            const sendBtn = this.nextElementSibling;
+            if (sendBtn) sendBtn.click();
+            
+            
+            this.value = '';
+            this.style.height = '40px';
+            this.style.overflowY = 'hidden';
+        }
+    });
+}
 });
 
 

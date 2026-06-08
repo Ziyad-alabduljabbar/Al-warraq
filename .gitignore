@@ -1,0 +1,8 @@
+.env
+__pycache__/
+*.pyc
+instance/
+*.db
+flask_session/
+report_charts/
+*.csv

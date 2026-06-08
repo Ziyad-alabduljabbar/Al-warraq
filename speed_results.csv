@@ -1,51 +1,51 @@
 ﻿Query,Mode1_ms,Mode2_ms,Mode3_ms,SpellCorrect_ms
-implementation 44bsd,42.24,161.05,321.99,0.02
-iot security,38.37,177.41,416.21,0.01
-chinese industry 40,41.92,241.36,291.39,0.02
-high performance compilers parallel,38.84,248.07,429.45,0.02
-intrusion detection prevention mobile,55.0,237.56,511.96,0.03
-team rivals,54.82,212.41,465.58,0.02
-born code,64.47,322.69,439.91,0.08
-agile testing,51.1,344.45,483.65,0.02
-cyber security,52.77,359.21,452.38,0.02
-tensorflow,53.96,326.2,465.88,0.02
-quantitative by,65.83,322.59,496.27,0.02
-human body,53.8,344.07,466.75,0.02
-high performance,52.62,284.11,474.63,0.02
-convergence mobile stationary,47.82,211.79,487.87,0.02
-idiots understanding,63.58,212.08,470.08,0.02
-electronic circuit,53.07,354.81,546.52,0.06
-democracy education,48.2,302.13,464.31,0.02
-network security,85.77,206.38,208.15,0.04
-einfuhrung die numerische,22.97,99.11,207.15,0.01
-molecular cloning,32.73,129.02,229.54,0.01
-meal management,24.93,202.99,199.12,0.01
-concise software,25.55,112.14,173.87,0.01
-dellarte della,19.86,76.64,175.52,0.01
-networking,20.28,80.21,124.93,0.01
-cartoon genetics,20.59,69.38,161.7,0.01
-explorations,21.57,119.68,159.0,0.01
-parallel supercomputing,18.17,99.87,157.47,0.01
-anarchical society,17.66,100.43,169.5,0.01
-heroides,20.72,123.31,156.72,0.01
-testing computer,16.94,120.03,188.26,0.03
-my best mathematical,18.17,101.28,146.49,0.01
-extending linear,16.95,105.63,142.28,0.01
-blockchain digital,27.74,100.95,161.37,0.01
-network security cryptography,19.0,80.83,157.18,0.01
-sound wild snail,20.45,79.03,172.35,0.01
-create your own,19.03,97.03,187.93,0.01
-optimal control distributed,25.2,82.61,150.9,0.01
-hacking securing,20.77,164.71,267.14,0.01
-quantum neural computation,25.35,77.05,219.11,0.01
-data centric,30.76,97.05,149.33,0.01
-face interaction,17.54,116.93,216.56,0.01
-sql,18.53,90.95,227.31,0.01
-pattern,23.72,120.23,188.0,0.01
-blockchain dummies,30.54,79.26,150.7,0.01
-john donne,16.75,83.23,154.88,0.01
-high performance,18.47,93.13,167.09,0.01
-examination sir,19.2,66.0,158.95,0.01
-microsoft dynamics,17.4,111.17,126.62,0.01
-advances cryptology,16.37,85.08,145.55,0.01
-strategic management business,16.94,84.39,149.34,0.01
+exam 70 410 installing,24.35,30.24,34.26,0.01
+automobile mechanical,16.17,31.19,28.36,0.01
+humanity,16.73,39.54,26.91,0.01
+signals systems,16.3,26.75,31.3,0.02
+biology belief,19.63,24.41,34.99,0.01
+cyber assurance internet things,19.99,24.5,27.4,0.01
+mario botta,16.52,26.91,32.01,0.01
+hippocrates,17.22,36.62,50.52,0.01
+hadoop,28.88,50.76,50.42,0.01
+motivated reinforcement,32.94,33.67,39.4,0.01
+linux progamming interface,19.7,29.56,28.01,0.01
+basic physical,18.71,43.26,34.54,0.01
+vagina monologues,22.57,40.05,46.68,0.01
+strategy of conflict,26.61,41.11,32.64,0.01
+introduction,20.56,33.23,27.35,0.01
+menschenkenntnis,16.21,27.29,31.36,0.01
+commentarii somnium,21.3,26.79,27.07,0.01
+programming fortran,17.48,35.5,27.94,0.01
+lectures numerical,21.44,32.86,31.85,0.01
+lean construction,22.7,36.54,32.38,0.01
+abcs calculus,18.64,27.35,32.54,0.01
+web analytics 20,16.57,24.61,27.3,0.01
+studies natural,16.36,26.34,27.08,0.01
+human anatomy,15.89,27.98,28.85,0.01
+beginning logic,18.82,24.53,27.31,0.01
+virtual reality systems,16.39,28.98,34.4,0.01
+statistical methods,16.44,36.11,39.89,0.01
+conducting network penetration espionage,16.62,26.67,27.3,0.01
+secrets lies,16.12,24.48,27.36,0.01
+virtual reality technology,16.19,32.08,43.33,0.02
+data privacy management,23.27,27.58,30.47,0.01
+multiple base number system,17.15,24.25,27.01,0.01
+1978 census,16.09,26.21,26.94,0.01
+sentiment bio medical,16.51,28.09,27.1,0.01
+asm,16.58,26.53,27.09,0.01
+ars amatoria,16.2,31.05,39.67,0.01
+non connected,16.31,28.29,27.34,0.01
+reachability problems,20.22,32.46,43.24,0.02
+metadata,30.36,27.19,27.61,0.01
+wireless sensor network,16.28,24.75,29.81,0.01
+formal methods embedded,22.46,27.41,27.52,0.01
+oracle plsql programming,20.98,36.59,27.31,0.01
+python gui programming tkinter,16.34,24.74,27.12,0.01
+social,15.95,27.59,31.47,0.01
+market wizards,35.2,31.02,26.84,0.01
+art unit testing,16.73,28.28,42.39,0.01
+founders dilemmas,17.06,31.51,39.14,0.01
+cyber exposure management,16.21,39.21,30.13,0.01
+methods,23.03,33.88,27.02,0.01
+programming c,15.84,27.13,30.34,0.01

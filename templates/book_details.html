@@ -5,10 +5,17 @@
 
 <section class="book-details">
   {% if current_user.is_authenticated %}
-    <a href="{{ url_for('add_favorite', title=book.title) }}" 
-       class="favorite-toggle {% if book_is_favorite %}active{% endif %}">
-       ★
-    </a>
+    {% if book_is_favorite %}
+        <a href="{{ url_for('remove_favorite', title=book.title) }}" 
+           class="favorite-toggle active" title="Remove from favorites">
+           ★
+        </a>
+    {% else %}
+        <a href="{{ url_for('add_favorite', title=book.title) }}" 
+           class="favorite-toggle" title="Add to favorites">
+           ★
+        </a>
+    {% endif %}
   {% endif %}
 
   <h1>{{ book.title }}</h1>
@@ -49,7 +56,7 @@
     </div>
   </div>
   <div class="chat-input-group">
-    <input type="text" id="chatInput" placeholder="Ask me anything...">
+    <textarea id="chatInput" placeholder="Ask me anything..."></textarea>
     <button onclick="handleSendClick()" class="button-primary">Send</button>
   </div>
 </div>

@@ -4,13 +4,13 @@ import time
 from tqdm import tqdm
 import os
 
-# اسم الملف اللي بنشتغل عليه ونعدل فيه
+
 file_name = 'AlWarraq_NLP_Ready.csv'
 
 print("⏳ Loading dataset...")
 df = pd.read_csv(file_name)
 
-# دالة الجلب الموثوقة
+
 def get_verified_google_description(title, author):
     try:
         query = f"intitle:{title}+inauthor:{author}"
@@ -26,8 +26,7 @@ def get_verified_google_description(title, author):
         pass
     return None
 
-# تحديد الكتب اللي "لسه" تحتاج تحديث
-# المرة الجاية لما تشغل السكربت، الكتب اللي اتحدثت ماراح تنطبق عليها هذي الشروط فبيتخطاها
+
 bad_data_condition = (
     df['description'].astype(str).str.contains('A book about', case=False, na=False) | 
     (df['description'].astype(str).str.len() < 150)

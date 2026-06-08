@@ -1,8 +1,12 @@
 ﻿Test_ID,Type,Message,Latency_ms,Passed,Notes,Response_Preview
-CB_01,Language_Arabic,ما هي المواضيع الرئيسية في هذا الكتاب؟,1294.5,True,Lang=OK | KW=2/2 (100%),"**موجز الكتاب**
-يغطي الكتاب **Artificial Intelligence** مواضيع رئيسية في مجال **الذكاء الاصطناعي**. وتشمل هذه المواضيع:
-"
-CB_02,Language_English,What are the main topics covered in this book?,1619.5,True,Lang=OK | KW=2/2 (100%),The **Python Machine Learning** book by Sebastian Raschka is a comprehensive guide to machine learning using Python. The
-CB_03,Recommendations,Can you recommend similar books?,1706.5,True,Lang=OK | KW=3/3 (100%),"**Software Engineering** enthusiasts will love these recommendations. Based on **""Clean Code""** by Robert C. Martin, her"
-CB_04,Specific_Question,What chapters does this book have?,2444.3,True,Lang=OK | KW=2/2 (100%),**Introduction to Algorithms** by Thomas H. Cormen is a comprehensive textbook that covers a wide range of topics in alg
+CB_01,Language_Arabic,ما هي المواضيع الرئيسية في هذا الكتاب؟,740.7,True,Lang=OK | KW=2/2 (100%),"المواضيع الرئيسية في كتاب **Artificial Intelligence** هي:
+* **نظم الخبراء** 
+* **الشبكات العصبونية** 
+تغطي هذه المواضيع "
+CB_02,Language_English,What are the main topics covered in this book?,746.3,True,Lang=OK | KW=2/2 (100%),"The main topics covered in **Python Machine Learning** by Sebastian Raschka include:
+* Introduction to machine learning "
+CB_03,Recommendations,Can you recommend similar books?,1330.3,True,Lang=OK | KW=3/3 (100%),"**Similar Book Recommendations:**
+* **The Pragmatic Programmer**: A guide to best practices in software development.
+* *"
+CB_04,Specific_Question,What chapters does this book have?,1014.7,True,Lang=OK | KW=2/2 (100%),I can't provide the exact chapters of **Introduction to Algorithms** by Thomas H. Cormen as this information is not avai
 CB_05,Empty_Message,,0.0,True,Empty message protection OK,Protected — empty message blocked

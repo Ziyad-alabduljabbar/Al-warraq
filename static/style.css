@@ -697,16 +697,39 @@ footer {
   border-bottom-left-radius: 0;
 }
 
+
 .chat-input-group {
-  display: flex;
-  gap: 10px;
+    display: flex;
+    gap: 8px;
+    align-items: center; 
+    width: 100%;
 }
 
-.chat-input-group input {
-  flex: 1;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
+
+#chatInput {
+    flex: 1;
+    height: 40px; 
+    min-height: 40px;
+    max-height: 95px; 
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    resize: none; 
+    overflow-y: hidden; 
+    line-height: 1.5;
+    font-family: inherit;
+    box-sizing: border-box;
+}
+
+
+.chat-input-group .button-primary {
+    height: 40px; 
+    min-height: 40px;
+    padding: 0 20px;
+    margin: 0;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
 }
 
 /* 13. Profile Page Styles ───────────────────────────────── */
