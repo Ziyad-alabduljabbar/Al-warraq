@@ -85,14 +85,14 @@ python app.py
 
 ## 👥 Team
 
-| Name | ID |
-|------|----|
-| Abdulmohsen Aljomah | 441101258 |
-| Abdulaziz Alhoshany | 441100817 |
-| Ziyad Othman Al-Abduljabbar | 441100931 |
-| Faisal Alahheadeb | 441100814 |
-| Abdulrahman Alamer | 441103405 |
-| Mohammed Ahmad Alghanam | 441101802 |
+| Name |
+|------|
+| Abdulmohsen Aljomah |
+| Abdulaziz Alhoshany |
+| Ziyad Othman Al-Abduljabbar |
+| Faisal Alahheadeb |
+| Abdulrahman Alamer |
+| Mohammed Ahmad Alghanam |
 
 **Supervisor:** Dr. Ahmed Shahin  
 **Institution:** Majmaah University — College of Computer and Information Sciences  
