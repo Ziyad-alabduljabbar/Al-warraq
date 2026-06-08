@@ -38,7 +38,7 @@ The system also features an **AI-powered chatbot librarian** that helps users un
 | AI Chatbot | Groq API (llama-3.3-70b), SambaNova API |
 | Database | SQLite, Flask-SQLAlchemy |
 | Frontend | HTML, CSS, JavaScript |
-| Deployment | Render |
+
 
 ---
 
