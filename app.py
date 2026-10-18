@@ -383,13 +383,19 @@ class ChatBot:
         ])
 
     
-    def _call_llm_api(self, messages, client):
+def _call_llm_api(self, messages, client):
         try:
             self._wait_if_needed()
 
+            # تحديد اسم النموذج بناءً على نوع العميل (Groq أو SambaNova)
+            if client == self.sambanova_client:
+                model_name = "Meta-Llama-3.3-70B-Instruct"
+            else:
+                model_name = "openai/gpt-oss-120b"  # أو أي نموذج بديل شغال على Groq
+
             response = client.chat.completions.create(
                 messages=messages,
-                model="llama-3.3-70b-versatile",
+                model=model_name,
                 temperature=0.1,
                 max_tokens=350,
                 timeout=10
