@@ -383,7 +383,7 @@ class ChatBot:
         ])
 
     
-def _call_llm_api(self, messages, client):
+    def _call_llm_api(self, messages, client):
         try:
             self._wait_if_needed()
 
